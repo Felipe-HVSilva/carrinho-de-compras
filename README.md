@@ -44,6 +44,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## 💻 Projeto
 Carrinho de compra feito com React e Styled-Components, era somente a parte do HTML e CSS porém dei um encrementada no projeto
+Talvez para os produtos aparecer precise abrir
 
 
 ## 🔖 Layout

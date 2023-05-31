@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 
 import { Product, ProductContainer } from './styles'
+import { cartContext } from '../../contexts/useCart'
 
 interface ProductsProps {
   id: number
@@ -10,11 +11,9 @@ interface ProductsProps {
   url: string
 }
 
-interface ProductListProps {
-  addProduct: (productName: string, value: string, url: string) => void
-}
+export function ProductList() {
+  const { handleAddProduct } = useContext(cartContext)
 
-export function ProductList({ addProduct }: ProductListProps) {
   const [productsList, setProductssList] = useState<ProductsProps[]>([])
 
   async function searchProduct() {
@@ -43,7 +42,7 @@ export function ProductList({ addProduct }: ProductListProps) {
                 <span>R$ {product.price}</span>
                 <button
                   onClick={() =>
-                    addProduct(product.name, product.price, product.url)
+                    handleAddProduct(product.name, product.price, product.url)
                   }
                 >
                   add

@@ -1,48 +1,28 @@
-import { Plus, X } from 'phosphor-react'
-
-import { CartItensProps } from '../../App'
+import { X } from 'phosphor-react'
 
 import {
-  BottomContent,
   BottomFixed,
   BuyButton,
   CartContainer,
   CartHeader,
   CartProducts,
-  NameProduct,
   OpenCart,
   Price,
 } from './styles'
 
 import tagImg from '../../assets/Tag.png'
-import miniusImg from '../../assets/Minus.png'
 
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { CartProduct } from '../CartProduct'
+import { cartContext } from '../../contexts/useCart'
 
-interface CartProps {
-  cartItens: CartItensProps[]
-}
-
-export function Cart({ cartItens }: CartProps) {
+export function Cart() {
+  const { cart } = useContext(cartContext)
   const [cartOpen, setCartOpen] = useState(true)
 
-  const [quantityItem, setQuantityItem] = useState(1)
+  const totalItens = cart.length
 
-  function handleAddQuantityItem() {
-    setQuantityItem((prev) => prev + 1)
-  }
-
-  function handleSubtrackQuantityItem() {
-    if (quantityItem === 0) {
-      return
-    }
-
-    setQuantityItem((prev) => prev - 1)
-  }
-
-  const totalItens = cartItens.length
-
-  const priceTotal = cartItens.reduce((acc, item) => {
+  const priceTotal = cart.reduce((acc, item) => {
     acc += Number(item.value)
     return acc
   }, 0)
@@ -75,37 +55,14 @@ export function Cart({ cartItens }: CartProps) {
           </CartHeader>
 
           <CartProducts>
-            {cartItens.map((item) => {
+            {cart.map((item) => {
               return (
-                <div className="cart-product" key={item.productName}>
-                  <div className="cart-product-image">
-                    <img src={item.url} alt="" />
-                  </div>
-
-                  <div className="main">
-                    <NameProduct>{item.productName}</NameProduct>
-
-                    <BottomContent>
-                      <strong>R$ {item.value}</strong>
-                      <div className="addRemove">
-                        <button
-                          onClick={handleSubtrackQuantityItem}
-                          className="subtract"
-                        >
-                          <img src={miniusImg} alt="" />
-                        </button>
-
-                        <div className="qty">
-                          <p>{quantityItem}</p>
-                        </div>
-
-                        <button onClick={handleAddQuantityItem} className="add">
-                          <Plus size={16} />
-                        </button>
-                      </div>
-                    </BottomContent>
-                  </div>
-                </div>
+                <CartProduct
+                  name={item.productName}
+                  value={item.value}
+                  url={item.url}
+                  key={item.productName}
+                />
               )
             })}
           </CartProducts>

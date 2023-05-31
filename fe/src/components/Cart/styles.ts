@@ -31,6 +31,7 @@ export const OpenCart = styled.button`
   gap: 10px;
   flex-direction: column;
   align-items: flex-end;
+
   background-color: transparent;
   border: none;
 

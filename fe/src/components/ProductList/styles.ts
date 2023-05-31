@@ -4,6 +4,14 @@ export const ProductContainer = styled.section`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 20px;
+
+  @media (max-width: 1300px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 999px) {
+    grid-template-columns: 1fr;
+  }
 `
 
 export const Product = styled.div`
